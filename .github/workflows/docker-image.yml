@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
     - name: Checkout code
       uses: actions/checkout@v3
       with:
@@ -26,6 +27,13 @@ jobs:
         echo "Iniciando login"
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
         echo "Fin del login"
+
+
+    - name: Build Docker Image
+      run: |
+        docker build -t britanyvs/docker-graphql:0.0.2 .
         
-#    - name: Build the Docker image
-#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+    - name: Push Docker Image
+      run: |
+        docker push britanyvs/docker-graphql:0.0.2 .
